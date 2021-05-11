@@ -6,13 +6,9 @@ pragma abicoder v2;
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0-solc-0.7/contracts/token/ERC20/ERC20.sol";
 import "./console.sol";
 
-// nethereum - discord
-// hardhat - discord
-// buildingcrypto
-// in search - "blockchain developers"
 contract VoterERC20 is ERC20 {
 
-    Voting DEFAULT_VOTING; // todo: ask about this
+    Voting DEFAULT_VOTING;
     
     Proposal DEFAULT_PROPOSAL;
     
