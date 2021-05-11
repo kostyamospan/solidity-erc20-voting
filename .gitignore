@@ -1,2 +1,2 @@
-./.deps/*
-./contracts/artifacts
+.deps
+contracts/artifacts
