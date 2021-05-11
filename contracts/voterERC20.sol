@@ -17,9 +17,11 @@ contract VoterERC20 is ERC20 {
     Proposal DEFAULT_PROPOSAL;
     
     Voting[] public votings;
+    
     constructor(string memory _name, string memory _symbol, uint256 _totalSupply) ERC20(_name, _symbol) {
         _mint(msg.sender, _totalSupply);
     } 
+    
     modifier onlyValidTokenOwner() {
         uint256 procentage = balanceOf(msg.sender) * 100 / totalSupply();
         console.log("Token owner has ", procentage, "of bank emission");
@@ -27,6 +29,7 @@ contract VoterERC20 is ERC20 {
         require( procentage >= 5 ,"Token owner must have >= 5% of bank emission.");
         _;
     } 
+    
     modifier notExpiredVoting(uint votingId) {
         Voting storage voting = votings[votingId];
         
@@ -39,6 +42,7 @@ contract VoterERC20 is ERC20 {
             require(false, "Voting is finished");
         }
     } 
+    
     function createVoting(bytes32[] memory proposals, uint256 votingDurationSeconds) public onlyValidTokenOwner returns (uint) {    
         votings.push();
         
@@ -58,6 +62,7 @@ contract VoterERC20 is ERC20 {
         
         return votings.length;
     } 
+    
     function endVoting(uint votingId) public {    
         Voting storage voting = votings[votingId];
         
@@ -66,6 +71,7 @@ contract VoterERC20 is ERC20 {
         
         finishVoting(votingId);
     } 
+    
     function getWinnerProposal(uint votingId) public view returns (string memory){  
         Voting storage voting = votings[votingId];
         
@@ -74,6 +80,7 @@ contract VoterERC20 is ERC20 {
         
         return calculateWinnerProposal(voting).name;
     }
+    
     function vote(uint votingId,string memory proposal) notExpiredVoting(votingId) public{  
         Voting storage voting = votings[votingId];
         
