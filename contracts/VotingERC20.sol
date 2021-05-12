@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0
 
-pragma solidity ^0.7.0;
-pragma abicoder v2;
+pragma solidity >=0.4.22 <0.9.0;
+//pragma abicoder v2;
 
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0-solc-0.7/contracts/token/ERC20/ERC20.sol";
-import "./console.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
 
 contract VoterERC20 is ERC20 {
 
@@ -20,7 +20,7 @@ contract VoterERC20 is ERC20 {
     
     modifier onlyValidTokenOwner() {
         uint256 procentage = balanceOf(msg.sender) * 100 / totalSupply();
-        console.log("Token owner has ", procentage, "of bank emission");
+       // console.log("Token owner has ", procentage, "of bank emission");
         
         require( procentage >= 5 ,"Token owner must have >= 5% of bank emission.");
         _;
@@ -56,7 +56,7 @@ contract VoterERC20 is ERC20 {
             addProposal(newVoting, proposal);
         }
         
-        return votings.length;
+        return votings.length - 1;
     } 
     
     function endVoting(uint votingId) public {    

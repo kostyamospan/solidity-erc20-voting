@@ -1,2 +1,7 @@
 .deps
 contracts/artifacts
+node_modules
+build
+test/bin/
+test/obj/
+test/.vs/
