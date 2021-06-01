@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity >=0.4.22 <0.9.0;
+pragma experimental ABIEncoderV2;
 //pragma abicoder v2;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
@@ -39,6 +40,29 @@ contract VoterERC20 is ERC20 {
         }
     } 
     
+
+    function getProposalInfo(uint256 _id, uint256 _proposalId) public view returns (string memory, uint256){ 
+        return (votings[_id].proposals[_proposalId].name, votings[_id].proposals[_proposalId].votes);
+    }
+
+
+    function getVotingsCount() public  view returns (uint256){
+        return votings.length;
+    }
+
+    function getAllProposals(uint256 _id) public view returns (string[] memory ){ 
+        Voting storage  v = votings[_id];
+
+        string[] memory proposals = new string[](v.proposalsCount);
+
+        for(uint i= 0;i<v.proposalsCount;i++ ) { 
+            proposals[i] = v.proposals[i].name;
+        }
+
+        return proposals;
+    }
+
+
     function createVoting(bytes32[] memory proposals, uint256 votingDurationSeconds) public onlyValidTokenOwner returns (uint) {    
         votings.push();
         
